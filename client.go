@@ -2,6 +2,7 @@ package mailclient
 
 import (
 	"fmt"
+	"log"
 	"net/smtp"
 )
 
@@ -64,6 +65,19 @@ func (s *Client) send(to []string, title, content, mailType string) error {
 }
 
 func (s *Client) SendHtml(to []string, title, content string) error {
+
+	if len(to) == 0 {
+		log.Fatalln("send to {Users} is null!")
+	}
+
+	if len(title) == 0 {
+		log.Fatalln("send to {title} is null!")
+	}
+
+	if len(content) == 0 {
+		log.Fatalln("send to {content} is null!")
+	}
+
 	err := s.send(to, title, content, DEFAULTSENDCONTENTTYPE)
 	return err
 }
