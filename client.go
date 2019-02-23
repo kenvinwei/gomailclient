@@ -5,7 +5,7 @@ import (
 	"net/smtp"
 )
 
-func (s *MailServer)send(to []string, title, content, mailType string) error {
+func (s *MailServer) send(to []string, title, content, mailType string) error {
 
 	mailAddr := fmt.Sprintf("%s:%d", s.Host, s.Port)
 	auth := smtp.PlainAuth(
@@ -33,8 +33,8 @@ func (s *MailServer)send(to []string, title, content, mailType string) error {
 			to,
 			[]byte(message))
 		return err
-	}else {
-		if err := smtp.SendMail(mailAddr, auth, s.User, to, []byte(message)); err!=nil{
+	} else {
+		if err := smtp.SendMail(mailAddr, auth, s.User, to, []byte(message)); err != nil {
 			return err
 		}
 	}
@@ -46,6 +46,3 @@ func (s *MailServer) SendHtml(to []string, title, content string) error {
 	err := s.send(to, title, content, DEFAULTSENDCONTENTTYPE)
 	return err
 }
-
-
-
