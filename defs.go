@@ -1,6 +1,6 @@
 package mailclient
 
-type MailServer struct {
+type Client struct {
 	Host    string
 	Port    int
 	User    string

@@ -5,7 +5,28 @@ import (
 	"net/smtp"
 )
 
-func (s *MailServer) send(to []string, title, content, mailType string) error {
+
+func NewClient(host string, port int, usedTLS bool) *Client {
+	return &Client{
+		Host:    host,
+		Port:    port,
+		UsedTLS: usedTLS,
+	}
+}
+
+func (s *Client) SetUser(user, pass string) *Client {
+	if len(s.User) == 0 {
+		s.User = user
+	}
+
+	if len(s.Pass) == 0 {
+		s.Pass = pass
+	}
+
+	return s
+}
+
+func (s *Client) send(to []string, title, content, mailType string) error {
 
 	mailAddr := fmt.Sprintf("%s:%d", s.Host, s.Port)
 	auth := smtp.PlainAuth(
@@ -42,7 +63,7 @@ func (s *MailServer) send(to []string, title, content, mailType string) error {
 	return nil
 }
 
-func (s *MailServer) SendHtml(to []string, title, content string) error {
+func (s *Client) SendHtml(to []string, title, content string) error {
 	err := s.send(to, title, content, DEFAULTSENDCONTENTTYPE)
 	return err
 }

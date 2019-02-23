@@ -22,10 +22,10 @@ var sendMailTest = struct {
 
 func TestSendHtmlMail(t *testing.T) {
 	//t.Skip()
-	s := NewServer(sendMailTest.Host, sendMailTest.Port, sendMailTest.UsedTLS)
-	s = s.SetUser(sendMailTest.User, sendMailTest.Pass)
+	cli := NewClient(sendMailTest.Host, sendMailTest.Port, sendMailTest.UsedTLS)
+	cli = cli.SetUser(sendMailTest.User, sendMailTest.Pass)
 
-	err := s.SendHtml(sendMailTest.To, sendMailTest.Title, sendMailTest.Content)
+	err := cli.SendHtml(sendMailTest.To, sendMailTest.Title, sendMailTest.Content)
 
 	if err != nil {
 		t.Errorf("send faild err:%v\n", err)
